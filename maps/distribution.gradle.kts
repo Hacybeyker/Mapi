@@ -5,9 +5,9 @@ version = generateVersion(ConfigureApp.version)
 fun generateVersion(version: String): String {
     val branchName = getBranchName()
     val isDevelopBranch = "develop" == branchName
-    /*if (isDevelopBranch) {
+    if (isDevelopBranch) {
         return version
-    }*/
+    }
     val sb: StringBuilder = StringBuilder()
     sb.append(version)
     sb.append("-")
@@ -31,14 +31,14 @@ fun getBranchName(): String {
 /*afterEvaluate {
     tasks.named("assembleGoogleRelease").configure {
         doLast {
-            println("HEREEEEEEEE - $buildDir")
+            println("Here - $buildDir")
             val file = File("$buildDir/outputs/aar/maps-google-release.aar")
             file.renameTo(File("$buildDir/outputs/aar/maps-${generateVersion(ConfigureApp.version)}.aar"))
         }
     }
     tasks.named("assembleHuaweiRelease").configure {
         doLast {
-            println("HEREEEEEEEE - $buildDir")
+            println("Here - $buildDir")
             val file = File("$buildDir/outputs/aar/maps-huawei-release.aar")
             file.renameTo(File("$buildDir/outputs/aar/maps-${generateVersion(ConfigureApp.version)}.aar"))
         }
