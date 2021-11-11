@@ -21,12 +21,9 @@ class MainActivity : AppCompatActivity(), OnDragCompleteListener, OnMapReadyList
         mapManager.setOnDragCompleteListener(this)
         mapManager.setOnMapReadyListener(this)
         val map = mapManager.fetchMapView()
-        val viewContainer = binding.containerMap
-        viewContainer.removeAllViews()
-        viewContainer.addView(map)
-
-        binding.tvhw.setOnClickListener {
-            Log.d("TAG", "Here - onCreate: Helouda")
+        binding.containerMap.apply {
+            removeAllViews()
+            addView(map)
         }
     }
 

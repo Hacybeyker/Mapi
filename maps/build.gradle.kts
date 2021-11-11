@@ -1,23 +1,24 @@
 plugins {
     id("com.android.library")
-    kotlin("android")
-    kotlin("kapt")
+    id("kotlin-android")
+    id("kotlin-kapt")
     id("com.google.secrets_gradle_plugin") version "0.5"
+    id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
+    id("io.gitlab.arturbosch.detekt").version("1.18.1")
 }
 
-//apply(from: "maven-push.gradle")
-apply(from = "distribution.gradle.kts")
+apply {
+    from("uploader.gradle")
+}
 
 android {
-    compileSdkVersion(VersionApp.compileSdkVersion)
-    buildToolsVersion(VersionApp.buildToolsVersion)
+    compileSdk = VersionApp.compileSdkVersion
+    buildToolsVersion = VersionApp.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion(VersionApp.minSdkVersion)
-        targetSdkVersion(VersionApp.targetSdkVersion)
-        versionCode(2)
-        versionName(Configuration.versionName)
-        testInstrumentationRunner(VersionApp.testInstrumentationRunner)
+        minSdk = VersionApp.minSdkVersion
+        targetSdk = VersionApp.targetSdkVersion
+        testInstrumentationRunner = VersionApp.testInstrumentationRunner
         consumerProguardFiles("consumer-rules.pro")
     }
 
@@ -25,15 +26,13 @@ android {
         getByName("debug") {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
-            //resValue "string", "google_maps_key", (project.findProperty("GOOGLE_MAPS_API_KEY") ?: "")
+            // resValue "string", "google_maps_key", (project.findProperty("GOOGLE_MAPS_API_KEY") ?: "")
             resValue(
                 "string",
                 "google_maps_key",
                 project.findProperty("GOOGLE_MAPS_API_KEY").toString() ?: ""
             )
         }
-        /*integration {}
-        qa {}*/
         getByName("release") {
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
@@ -51,44 +50,54 @@ android {
     }
 
     kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
+    tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
+        jvmTarget = "1.8"
+    }
 
-    flavorDimensions("app")
+    flavorDimensions.add("app")
     productFlavors {
         create("google") {
             dimension = "app"
-            print("Here - GMS")
+            println("Here - Maps - GMS")
         }
         create("huawei") {
             dimension = "app"
-            print("Here - HMS")
+            println("Here - Maps - HMS")
         }
     }
-/*
-    task sourceJar (type: Jar) {
-    from android . sourceSets . main . java . srcDirs
-            classifier "sources"
-}*/
+
+    detekt {
+        buildUponDefaultConfig = true
+        allRules = true
+        config = files("$projectDir/config/detekt.yml")
+        reports {
+            html.enabled = true
+            xml.enabled = true
+            txt.enabled = false
+            sarif.enabled = false
+        }
+    }
 }
 
 dependencies {
-    //Kotlin
+    // Kotlin
     implementation(MainApplicationDependencies.coreKtx)
-    //View
+    // View
     implementation(MainApplicationDependencies.appCompat)
     implementation(MainApplicationDependencies.material)
     implementation(MainApplicationDependencies.constraintLayout)
-    //Test
+    // Test
     testImplementation(TestDependencies.junit)
     androidTestImplementation(TestDependencies.extJUnit)
     androidTestImplementation(TestDependencies.espressoCore)
-    //Koin
+    // Koin
     implementation(MainApplicationDependencies.koinCore)
     implementation(MainApplicationDependencies.koinAndroidxScope)
     implementation(MainApplicationDependencies.koinAndroidxViewModel)
-    //Test
+    // Test
     testImplementation(TestDependencies.mockitoCore)
     testImplementation(TestDependencies.robolectric)
-    //Maps
+    // Maps
     "huaweiImplementation"(MainApplicationDependencies.hmsMaps)
     "googleImplementation"(MainApplicationDependencies.gmsMaps)
 }

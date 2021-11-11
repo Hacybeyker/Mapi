@@ -3,10 +3,10 @@ package com.hacybeyker.maps
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import com.huawei.hms.maps.CameraUpdateFactory
 import com.huawei.hms.maps.HuaweiMap
 import com.huawei.hms.maps.HuaweiMapOptions
 import com.huawei.hms.maps.MapView
-import com.huawei.hms.maps.CameraUpdateFactory
 import com.huawei.hms.maps.OnMapReadyCallback
 import com.huawei.hms.maps.model.LatLng
 import com.huawei.hms.maps.model.Marker
@@ -58,19 +58,15 @@ class MapManager : IMapManager, OnMapReadyCallback, HuaweiMap.OnMarkerDragListen
     }
 
     override fun setZoomControlsEnabled(state: Boolean) {
-
     }
 
     override fun setScrollGesturesEnabled(state: Boolean) {
-
     }
 
     override fun setZoomGesturesEnabled(state: Boolean) {
-
     }
 
     override fun setCompassEnabled(state: Boolean) {
-
     }
 
     override fun onMapReady(map: HuaweiMap?) {
@@ -82,11 +78,9 @@ class MapManager : IMapManager, OnMapReadyCallback, HuaweiMap.OnMarkerDragListen
     }
 
     override fun onMarkerDragStart(p0: Marker?) {
-
     }
 
     override fun onMarkerDrag(p0: Marker?) {
-
     }
 
     override fun onMarkerDragEnd(marker: Marker) {

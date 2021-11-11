@@ -1,88 +1,50 @@
-import org.gradle.api.internal.artifacts.publish.DefaultPublishArtifact
+apply plugin: 'maven-publish'
 
-def repoUser = findProperty("USERNAME")
-def repoPassword = findProperty("PASSWORD")
-
-
-def getVersionNameElement(name) {
-    def branchName = System.getenv("BRANCH_NAME")
-    def isDevelopBranch = "develop" == branchName
-    def versionArray = version.split("-")
-    def number = versionArray[0]
-    def branch = version.replace(number + "-g-", "")
-    branch = branch.replace(number + "-h-", "")
-    branch = branch.replace(number + "-null-", "")
-    if (isReleaseBranch()) {
-        if (name != "") {
-            return number + "-" + name
-        }
-        return number
-    }
-    if (isDevelopBranch) {
-        if (name != "") {
-            return number + "-" + name + "-SNAPSHOT"
-        }
-        return number + "-SNAPSHOT"
-
-    }
-    if (name != "") {
-
-        return number + "-" + name + "-" + branch
-    }
-    branch = branch.replace(number + "-", "")
-    branch = branch.replace(number + "-", "")
-    return number + "-" + branch
-
+apply {
+    from("distribution.gradle.kts")
 }
 
-def isReleaseBranch() {
-    def branchName = System.getenv("BRANCH_NAME")
-    def isReleaseBranch = "master" == branchName
-    if (!isReleaseBranch && branchName != null)
-        isReleaseBranch = branchName.startsWith("re-")
-    return isReleaseBranch
-}
+def repoUsername = findProperty("REPO_USERID") ?: System.getenv("REPO_USERID")
+def repoPassword = findProperty("REPO_TOKEN") ?: System.getenv("REPO_TOKEN")
+def versionApp = version
 
 afterEvaluate {
-    def versionAppGoogle = getVersionNameElement("g")
-    def versionAppHuawei = getVersionNameElement("h")
-    def versionApp = getVersionNameElement("")
-    def groupApp = group
-    artifacts {
-        archives new DefaultPublishArtifact("maps-huawei", "aar", "aar", null, new Date(), new File("maps/build/outputs/aar/", "maps-" + versionAppHuawei + ".aar"))
-        archives new DefaultPublishArtifact("maps-google", "aar", "aar", null, new Date(), new File("maps/build/outputs/aar/", "maps-" + versionAppGoogle + ".aar"))
-    }
-
-    uploadArchives {
-        repositories {
-            mavenDeployer {
-                pom {
-                    groupId = groupApp
-                    artifactId = 'maps'
+    publishing {
+        publications {
+            google(MavenPublication) {
+                groupId = ConfigureApp.groupId
+                artifactId = ConfigureApp.artifactId
+                version = versionApp
+                artifacts {
+                    artifact("$buildDir/outputs/aar/maps-google-release.aar")
                     version = versionApp
-
+                    groupId = ConfigureApp.groupId
+                    artifactId = "google"
                 }
-                addFilter('maps-huawei') { artifact, file ->
-                    artifact.name == "maps-huawei"
-                }
-                addFilter('maps-google') { artifact, file ->
-                    artifact.name == "maps-google"
-                }
-                repository(url: "http://192.168.1.17:8081/repository/maven-snapshots/") {
-                    authentication(userName: repoUser, password: repoPassword)
-                }
-                snapshotRepository(url: "http://192.168.1.17:8081/repository/maven-snapshots/") {
-                    authentication(userName: repoUser, password: repoPassword)
-                }
-                pom("maps-huawei").version = versionApp
-                pom("maps-huawei").groupId = groupApp
-                pom("maps-huawei").artifactId = 'huawei'
-
-                pom("maps-google").version = versionApp
-                pom("maps-google").groupId = groupApp
-                pom("maps-google").artifactId = 'google'
             }
 
+            huawei(MavenPublication) {
+                groupId = ConfigureApp.groupId
+                artifactId = ConfigureApp.artifactId
+                version = versionApp
+                artifacts {
+                    artifact("$buildDir/outputs/aar/maps-huawei-release.aar")
+                    version = versionApp
+                    groupId = ConfigureApp.groupId
+                    artifactId = "huawei"
+                }
+            }
+        }
+        repositories {
+            maven {
+                name = "Artifact"
+                url = ConfigureApp.urlRepoDependencies
+                allowInsecureProtocol(true)
+                credentials {
+                    username = repoUsername
+                    password = repoPassword
+                }
+            }
         }
     }
 }

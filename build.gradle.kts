@@ -3,22 +3,23 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        mavenLocal()
         maven {
             setUrl("https://developer.huawei.com/repo/")
             name = "Huawei"
         }
-        /*maven {
-            url = MAVEN_REPOSITORY_URL_RELEASE
+        maven {
+            setUrl(ConfigureApp.urlRepoDependencies)
             isAllowInsecureProtocol = true
             credentials {
-                username = USERNAME
-                password = PASSWORD
+                username = findProperty("REPO_USERID") as String? ?: System.getenv("REPO_USERID")
+                password = findProperty("REPO_TOKEN") as String? ?: System.getenv("REPO_TOKEN")
             }
-        }*/
+        }
     }
 
     dependencies {
-        classpath("com.android.tools.build:gradle:4.2.2")
+        classpath("com.android.tools.build:gradle:7.0.3")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21")
         classpath("com.huawei.agconnect:agcp:1.5.2.300")
         classpath("com.google.gms:google-services:4.3.10")
@@ -29,15 +30,20 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        maven(url = ("https://developer.huawei.com/repo/"))
-        /*maven {
-            url = MAVEN_REPOSITORY_URL_RELEASE
+        mavenLocal()
+        maven {
+            setUrl("https://developer.huawei.com/repo/")
+            isAllowInsecureProtocol = true
+            name = "Huawei"
+        }
+        maven {
+            setUrl(ConfigureApp.urlRepoDependencies)
             isAllowInsecureProtocol = true
             credentials {
-                username = USERNAME
-                password = PASSWORD
+                username = findProperty("REPO_USERID") as String? ?: System.getenv("REPO_USERID")
+                password = findProperty("REPO_TOKEN") as String? ?: System.getenv("REPO_TOKEN")
             }
-        }*/
+        }
     }
 }
 

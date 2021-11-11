@@ -8,17 +8,17 @@ import android.util.Log
 import android.view.View
 import androidx.annotation.VisibleForTesting
 import androidx.core.content.ContextCompat
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.MapView
-import com.google.android.gms.maps.GoogleMapOptions
 import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.model.MapStyleOptions
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.GoogleMapOptions
+import com.google.android.gms.maps.MapView
+import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
 
 class MapManager : IMapManager, OnMapReadyCallback, GoogleMap.OnMarkerDragListener {
 
@@ -110,11 +110,9 @@ class MapManager : IMapManager, OnMapReadyCallback, GoogleMap.OnMarkerDragListen
     }
 
     override fun onMarkerDragStart(p0: Marker) {
-
     }
 
     override fun onMarkerDrag(p0: Marker) {
-
     }
 
     override fun onMarkerDragEnd(marker: Marker) {

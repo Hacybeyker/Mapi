@@ -1,21 +1,21 @@
 plugins {
     id("com.android.application")
-    kotlin("android")
-    kotlin("kapt")
+    id("kotlin-android")
+    id("kotlin-kapt")
     id("com.google.secrets_gradle_plugin") version "0.5"
 }
 
 android {
-    compileSdkVersion(VersionApp.compileSdkVersion)
-    buildToolsVersion(VersionApp.buildToolsVersion)
+    compileSdk = VersionApp.compileSdkVersion
+    buildToolsVersion = VersionApp.buildToolsVersion
 
     defaultConfig {
-        applicationId("com.hacybeyker.maps")
-        minSdkVersion(VersionApp.minSdkVersion)
-        targetSdkVersion(VersionApp.targetSdkVersion)
-        versionCode(2)
-        versionName(Configuration.versionName)
-        testInstrumentationRunner(VersionApp.testInstrumentationRunner)
+        applicationId = "com.hacybeyker.maps"
+        minSdk = VersionApp.minSdkVersion
+        targetSdk = VersionApp.targetSdkVersion
+        versionCode = 2
+        versionName = ConfigureApp.versionName
+        testInstrumentationRunner = VersionApp.testInstrumentationRunner
         vectorDrawables { useSupportLibrary = true }
     }
 
@@ -23,8 +23,6 @@ android {
         getByName("debug") {
             isDebuggable = true
         }
-        /*integration {}
-        qa {}*/
         getByName("release") {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
@@ -38,21 +36,18 @@ android {
 
     kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
 
-    flavorDimensions("app")
+    flavorDimensions.add("app")
     productFlavors {
         create("google") {
             dimension = "app"
-            //setDimension("app")
-            //buildConfigField "String", "SERVICE_USED", '"g"'
-            //applicationIdSuffix ".google"
-            print("Here - GMS")
+            applicationId = "com.hacybeyker.app_android_maps"
+            println("Here - Demo - GMS")
         }
         create("huawei") {
             dimension = "app"
-            //setDimension("app")
-            //apply(plugin = "com.huawei.agconnect")
-            //buildConfigField "String", "SERVICE_USED", '"h"'
-            print("Here - HMS")
+            applicationId = "com.hacybeyker.app_android_maps"
+            apply(plugin = "com.huawei.agconnect")
+            println("Here - Demo - HMS")
         }
     }
 
@@ -82,7 +77,4 @@ dependencies {
     //Maps
     "googleImplementation"(project(path = ":maps"))
     "huaweiImplementation"(project(path = ":maps"))
-
-    //implementation files('libs/maps.aar')
-    //implementation("com.hacybeyker.maps:maps:1.0.0")
 }
