@@ -5,6 +5,7 @@ plugins {
     id("com.google.secrets_gradle_plugin") version "0.5"
     id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
     id("io.gitlab.arturbosch.detekt").version("1.18.1")
+    id("kotlin-parcelize")
 }
 
 apply {
@@ -26,11 +27,10 @@ android {
         getByName("debug") {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
-            // resValue "string", "google_maps_key", (project.findProperty("GOOGLE_MAPS_API_KEY") ?: "")
             resValue(
                 "string",
                 "google_maps_key",
-                project.findProperty("GOOGLE_MAPS_API_KEY").toString() ?: ""
+                project.findProperty("GOOGLE_MAPS_API_KEY").toString()
             )
         }
         getByName("release") {
@@ -39,7 +39,7 @@ android {
             resValue(
                 "string",
                 "google_maps_key",
-                project.findProperty("GOOGLE_MAPS_API_KEY").toString() ?: ""
+                project.findProperty("GOOGLE_MAPS_API_KEY").toString()
             )
         }
     }
@@ -54,15 +54,17 @@ android {
         jvmTarget = "1.8"
     }
 
+    buildFeatures {
+        viewBinding = true
+    }
+
     flavorDimensions.add("app")
     productFlavors {
         create("google") {
             dimension = "app"
-            println("Here - Maps - GMS")
         }
         create("huawei") {
             dimension = "app"
-            println("Here - Maps - HMS")
         }
     }
 
@@ -86,6 +88,7 @@ dependencies {
     implementation(MainApplicationDependencies.appCompat)
     implementation(MainApplicationDependencies.material)
     implementation(MainApplicationDependencies.constraintLayout)
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
     // Test
     testImplementation(TestDependencies.junit)
     androidTestImplementation(TestDependencies.extJUnit)

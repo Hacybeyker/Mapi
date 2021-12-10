@@ -4,25 +4,15 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 
-interface IMapManager {
-    fun configMap(context: Context, savedInstanceState: Bundle? = null)
-    fun fetchMapView(): View
+interface MapManager {
+    fun setupMap(context: Context, savedInstanceState: Bundle? = null)
+    fun getMapView(): View
     fun setOnDragCompleteListener(listener: OnDragCompleteListener)
     fun setOnMapReadyListener(listener: OnMapReadyListener)
-    fun setPositionWithMarker(
-        coordinatesVO: CoordinatesVO,
-        zoomLevel: ZoomLevel = ZoomLevel.STREETS
-    )
-
+    fun setPositionWithMarker(coordinatesVO: CoordinatesVO, zoomLevel: ZoomLevel = ZoomLevel.STREETS, iconRes: Int = R.drawable.iconmaps)
     fun setZoomControlsEnabled(state: Boolean)
     fun setScrollGesturesEnabled(state: Boolean)
     fun setZoomGesturesEnabled(state: Boolean)
     fun setCompassEnabled(state: Boolean)
-
-    fun onStart()
-    fun onStop()
-    fun onDestroy()
-    fun onPause()
-    fun onResume()
-    fun onLowMemory()
+    fun setMapToolbarEnabled(state: Boolean)
 }

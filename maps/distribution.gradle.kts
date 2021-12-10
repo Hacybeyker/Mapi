@@ -28,23 +28,6 @@ fun getBranchName(): String {
     return sb.toString().trim().replace("\n", "")
 }
 
-/*afterEvaluate {
-    tasks.named("assembleGoogleRelease").configure {
-        doLast {
-            println("Here - $buildDir")
-            val file = File("$buildDir/outputs/aar/maps-google-release.aar")
-            file.renameTo(File("$buildDir/outputs/aar/maps-${generateVersion(ConfigureApp.version)}.aar"))
-        }
-    }
-    tasks.named("assembleHuaweiRelease").configure {
-        doLast {
-            println("Here - $buildDir")
-            val file = File("$buildDir/outputs/aar/maps-huawei-release.aar")
-            file.renameTo(File("$buildDir/outputs/aar/maps-${generateVersion(ConfigureApp.version)}.aar"))
-        }
-    }
-}*/
-
 tasks.register("printVersion") {
     doLast {
         println("Here - version: " + ConfigureApp.versionName)

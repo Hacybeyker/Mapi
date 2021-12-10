@@ -41,13 +41,11 @@ android {
         create("google") {
             dimension = "app"
             applicationId = "com.hacybeyker.app_android_maps"
-            println("Here - Demo - GMS")
         }
         create("huawei") {
             dimension = "app"
             applicationId = "com.hacybeyker.app_android_maps"
             apply(plugin = "com.huawei.agconnect")
-            println("Here - Demo - HMS")
         }
     }
 

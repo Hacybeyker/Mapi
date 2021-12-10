@@ -1,74 +1,35 @@
 package com.hacybeyker.maps
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.hacybeyker.maps.databinding.ActivityMainBinding
-import org.koin.android.ext.android.inject
+import com.hacybeyker.maps.view.FragmentMap
 
-class MainActivity : AppCompatActivity(), OnDragCompleteListener, OnMapReadyListener {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-
-    private val mapManager: IMapManager by inject()
+    private lateinit var fragmentMap: FragmentMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        mapManager.configMap(this, savedInstanceState)
-        mapManager.setOnDragCompleteListener(this)
-        mapManager.setOnMapReadyListener(this)
-        val map = mapManager.fetchMapView()
-        binding.containerMap.apply {
-            removeAllViews()
-            addView(map)
-        }
+        setupMap()
     }
 
-    override fun onDragComplete(coordinatesVO: CoordinatesVO) {
-        Log.d("TAG", "Here - onDragComplete: ${coordinatesVO.latitude},${coordinatesVO.longitude}")
-    }
-
-    override fun onMapReady() {
-        Log.d("TAG", "Here - onMapReady: ")
-        mapManager.setPositionWithMarker(
-            CoordinatesVO(
-                -33.415425476237196,
-                -70.59023828953504,
-                "Edificio EuroAmerica"
-            ), ZoomLevel.STREETS
+    private fun setupMap() {
+        fragmentMap = FragmentMap.newInstance(
+            coordinatesVO = CoordinatesVO(
+                latitude = -33.459462,
+                longitude = -70.663953,
+                description = "Hola"
+            ),
+            propertyMapVO = PropertyMapVO(
+                iconMarker = R.drawable.iconmaps,
+                zoomControlsEnabled = true,
+                setZoomGesturesEnabled = true
+            )
         )
-    }
-
-    override fun onStart() {
-        super.onStart()
-        mapManager.onStart()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        mapManager.onResume()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        mapManager.onStop()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        mapManager.onPause()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mapManager.onDestroy()
-    }
-
-    override fun onLowMemory() {
-        super.onLowMemory()
-        mapManager.onLowMemory()
+        supportFragmentManager.beginTransaction().add(R.id.fcvContainerMap, fragmentMap).commit()
     }
 }

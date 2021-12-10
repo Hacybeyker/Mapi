@@ -10,7 +10,7 @@ class MapApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        startKoin {
+        /*startKoin {
             androidLogger(Level.NONE)
             androidContext(this@MapApplication)
             modules(
@@ -18,6 +18,6 @@ class MapApplication : Application() {
                     mapModule
                 )
             )
-        }
+        }*/
     }
 }
