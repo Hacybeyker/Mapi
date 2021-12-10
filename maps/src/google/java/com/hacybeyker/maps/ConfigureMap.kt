@@ -18,7 +18,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 
-class ConfigureMap : MapManager, OnMapReadyCallback, OnLifeCycleMap {
+class ConfigureMap : MapManager, OnMapReadyCallback, MapSetting, OnLifeCycleMap {
 
     lateinit var mapView: MapView @VisibleForTesting set
     var map: GoogleMap? = null @VisibleForTesting set
@@ -29,20 +29,21 @@ class ConfigureMap : MapManager, OnMapReadyCallback, OnLifeCycleMap {
     override fun setupMap(context: Context, savedInstanceState: Bundle?) {
         this.context = context
         val options = GoogleMapOptions().apply {
-            compassEnabled(true)
-            zoomControlsEnabled(true)
-            scrollGesturesEnabled(true)
-            zoomGesturesEnabled(true)
-            setMapToolbarEnabled(true)
+            compassEnabled(false)
+            zoomControlsEnabled(false)
+            scrollGesturesEnabled(false)
+            zoomGesturesEnabled(false)
+            mapToolbarEnabled(false)
+            rotateGesturesEnabled(false)
         }
-        mapView = MapView(context, options).apply {
+        this.mapView = MapView(context, options).apply {
             onCreate(savedInstanceState)
             getMapAsync(this@ConfigureMap)
         }
     }
 
     override fun getMapView(): View {
-        return mapView
+        return this.mapView
     }
 
     override fun setOnDragCompleteListener(listener: OnDragCompleteListener) {
@@ -61,7 +62,7 @@ class ConfigureMap : MapManager, OnMapReadyCallback, OnLifeCycleMap {
         this.map?.let { map ->
             val place = LatLng(coordinatesVO.latitude, coordinatesVO.longitude)
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(place, zoomLevel.value))
-            val markerIcon = bitmapDescriptorFromVector(context, R.drawable.iconmaps)
+            val markerIcon = bitmapDescriptorFromVector(context, iconRes)
             map.addMarker(MarkerOptions().position(place).icon(markerIcon))
         }
     }
@@ -84,6 +85,10 @@ class ConfigureMap : MapManager, OnMapReadyCallback, OnLifeCycleMap {
 
     override fun setMapToolbarEnabled(state: Boolean) {
         this.map?.uiSettings?.isMapToolbarEnabled = state
+    }
+
+    override fun setRotateGestureEnabled(state: Boolean) {
+        this.map?.uiSettings?.isRotateGesturesEnabled = state
     }
 
     override fun onMapReady(map: GoogleMap?) {

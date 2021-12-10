@@ -69,11 +69,7 @@ class FragmentMap : Fragment(), OnMapReadyListener {
     }
 
     override fun onMapReady() {
-        configureMap.setZoomControlsEnabled(propertyMapVO?.zoomControlsEnabled ?: false)
-        configureMap.setScrollGesturesEnabled(propertyMapVO?.setScrollGesturesEnabled ?: false)
-        configureMap.setZoomGesturesEnabled(propertyMapVO?.setZoomGesturesEnabled ?: false)
-        configureMap.setCompassEnabled(propertyMapVO?.setCompassEnabled ?: false)
-        configureMap.setMapToolbarEnabled(propertyMapVO?.setMapToolbarEnabled ?: false)
+        loadMapSetting()
         configureMap.setPositionWithMarker(
             coordinatesVO = CoordinatesVO(
                 latitude = coordinatesVO.latitude,
@@ -83,6 +79,15 @@ class FragmentMap : Fragment(), OnMapReadyListener {
             zoomLevel = propertyMapVO?.zoomLevel ?: ZoomLevel.STREETS,
             iconRes = propertyMapVO?.iconMarker ?: R.drawable.iconmaps
         )
+    }
+
+    private fun loadMapSetting() {
+        configureMap.setZoomControlsEnabled(propertyMapVO?.zoomControlsEnabled ?: false)
+        configureMap.setScrollGesturesEnabled(propertyMapVO?.scrollGesturesEnabled ?: false)
+        configureMap.setZoomGesturesEnabled(propertyMapVO?.zoomGesturesEnabled ?: false)
+        configureMap.setCompassEnabled(propertyMapVO?.compassEnabled ?: false)
+        configureMap.setMapToolbarEnabled(propertyMapVO?.mapToolbarEnabled ?: false)
+        configureMap.setRotateGestureEnabled(propertyMapVO?.rotateGestureEnabled ?: false)
     }
 
     fun zoomControlsEnabled(state: Boolean) {
@@ -103,6 +108,10 @@ class FragmentMap : Fragment(), OnMapReadyListener {
 
     fun mapToolbarEnabled(state: Boolean) {
         configureMap.setMapToolbarEnabled(state = state)
+    }
+
+    fun rotateGestureEnabled(state: Boolean) {
+        configureMap.setRotateGestureEnabled(state = state)
     }
 
     override fun onStart() {

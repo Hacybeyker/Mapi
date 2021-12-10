@@ -19,11 +19,7 @@ import com.huawei.hms.maps.model.MapStyleOptions
 import com.huawei.hms.maps.model.Marker
 import com.huawei.hms.maps.model.MarkerOptions
 
-class ConfigureMap :
-    MapManager,
-    OnMapReadyCallback,
-    HuaweiMap.OnMarkerDragListener,
-    OnLifeCycleMap {
+class ConfigureMap : MapManager, OnMapReadyCallback, MapSetting, HuaweiMap.OnMarkerDragListener, OnLifeCycleMap {
 
     lateinit var mapView: MapView @VisibleForTesting set
     var map: HuaweiMap? = null @VisibleForTesting set
@@ -34,11 +30,12 @@ class ConfigureMap :
     override fun setupMap(context: Context, savedInstanceState: Bundle?) {
         this.context = context
         val options = HuaweiMapOptions().apply {
-            compassEnabled(true)
-            zoomControlsEnabled(true)
-            scrollGesturesEnabled(true)
-            zoomGesturesEnabled(true)
-            mapToolbarEnabled(true)
+            compassEnabled(false)
+            zoomControlsEnabled(false)
+            scrollGesturesEnabled(false)
+            zoomGesturesEnabled(false)
+            mapToolbarEnabled(false)
+            rotateGesturesEnabled(false)
         }
         var bundle: Bundle? = null
         if (savedInstanceState != null) {
@@ -51,7 +48,7 @@ class ConfigureMap :
     }
 
     override fun getMapView(): View {
-        return mapView
+        return this.mapView
     }
 
     override fun setOnDragCompleteListener(listener: OnDragCompleteListener) {
@@ -80,19 +77,23 @@ class ConfigureMap :
     }
 
     override fun setScrollGesturesEnabled(state: Boolean) {
-        this.map?.uiSettings?.isZoomControlsEnabled = state
+        this.map?.uiSettings?.isScrollGesturesEnabled = state
     }
 
     override fun setZoomGesturesEnabled(state: Boolean) {
-        this.map?.uiSettings?.isZoomControlsEnabled = state
+        this.map?.uiSettings?.isZoomGesturesEnabled = state
     }
 
     override fun setCompassEnabled(state: Boolean) {
-        this.map?.uiSettings?.isZoomControlsEnabled = state
+        this.map?.uiSettings?.isCompassEnabled = state
     }
 
     override fun setMapToolbarEnabled(state: Boolean) {
         this.map?.uiSettings?.isMapToolbarEnabled = state
+    }
+
+    override fun setRotateGestureEnabled(state: Boolean) {
+        this.map?.uiSettings?.isRotateGesturesEnabled = state
     }
 
     override fun onMapReady(map: HuaweiMap?) {

@@ -25,11 +25,16 @@ class MainActivity : AppCompatActivity() {
                 description = "Hola"
             ),
             propertyMapVO = PropertyMapVO(
-                iconMarker = R.drawable.iconmaps,
-                zoomControlsEnabled = true,
-                setZoomGesturesEnabled = true
+                zoomControlsEnabled = false,
+                scrollGesturesEnabled = false,
+                zoomGesturesEnabled = false,
+                compassEnabled = false,
+                mapToolbarEnabled = false,
+                rotateGestureEnabled = false,
+                zoomLevel = ZoomLevel.STREETS,
+                iconMarker = R.drawable.iconmaps_red
             )
         )
-        supportFragmentManager.beginTransaction().add(R.id.fcvContainerMap, fragmentMap).commit()
+        supportFragmentManager.beginTransaction().add(R.id.fcvShowMap, fragmentMap).commit()
     }
 }
