@@ -21,6 +21,7 @@ android {
         targetSdk = VersionApp.targetSdkVersion
         testInstrumentationRunner = VersionApp.testInstrumentationRunner
         consumerProguardFiles("consumer-rules.pro")
+        renderscriptSupportModeEnabled = true
     }
 
     buildTypes {
@@ -58,6 +59,25 @@ android {
         viewBinding = true
     }
 
+    testOptions {
+        unitTests {
+            isReturnDefaultValues = true
+            isIncludeAndroidResources = true
+        }
+        unitTests.all {
+            it.jvmArgs(
+                "-Xms2g",
+                "-Xmx2g",
+                //"-XX:+UseConcMarkSweepGC",
+                //"-XX:+UseParNewGC",
+                "-XX:+DisableExplicitGC"
+            )
+            it.testLogging {
+                events("passed", "skipped", "failed", "standardOut", "standardError")
+            }
+        }
+    }
+
     flavorDimensions.add("app")
     productFlavors {
         create("google") {
@@ -88,7 +108,7 @@ dependencies {
     implementation(MainApplicationDependencies.appCompat)
     implementation(MainApplicationDependencies.material)
     implementation(MainApplicationDependencies.constraintLayout)
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    //implementation("androidx.legacy:legacy-support-v4:1.0.0")
     // Test
     testImplementation(TestDependencies.junit)
     androidTestImplementation(TestDependencies.extJUnit)
@@ -100,6 +120,7 @@ dependencies {
     // Test
     testImplementation(TestDependencies.mockitoCore)
     testImplementation(TestDependencies.robolectric)
+    //testImplementation(TestDependencies.robolectricShadow)
     // Maps
     "huaweiImplementation"(MainApplicationDependencies.hmsMaps)
     "googleImplementation"(MainApplicationDependencies.gmsMaps)
