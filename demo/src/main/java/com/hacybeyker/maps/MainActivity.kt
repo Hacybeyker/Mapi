@@ -20,17 +20,17 @@ class MainActivity : AppCompatActivity() {
     private fun setupMap() {
         fragmentMap = FragmentMap.newInstance(
             coordinatesVO = CoordinatesVO(
-                latitude = -33.459462,
-                longitude = -70.663953,
-                description = "Hola"
+                latitude = -33.4410298,
+                longitude = -70.6511565,
+                description = "Falabella Electrohogar"
             ),
             propertyMapVO = PropertyMapVO(
-                zoomControlsEnabled = false,
-                scrollGesturesEnabled = false,
-                zoomGesturesEnabled = false,
-                compassEnabled = false,
-                mapToolbarEnabled = false,
-                rotateGestureEnabled = false,
+                zoomControlsEnabled = true,
+                scrollGesturesEnabled = true,
+                zoomGesturesEnabled = true,
+                compassEnabled = true,
+                mapToolbarEnabled = true,
+                rotateGestureEnabled = true,
                 zoomLevel = ZoomLevel.STREETS,
                 iconMarker = R.drawable.iconmaps_red
             )

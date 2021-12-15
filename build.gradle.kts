@@ -22,6 +22,7 @@ buildscript {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.0")
         classpath("com.huawei.agconnect:agcp:1.5.2.300")
         classpath("com.google.gms:google-services:4.3.10")
+        classpath("com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin:2.0.0")
     }
 }
 

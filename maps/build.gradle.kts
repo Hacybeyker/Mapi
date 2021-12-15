@@ -2,7 +2,7 @@ plugins {
     id("com.android.library")
     id("kotlin-android")
     id("kotlin-kapt")
-    id("com.google.secrets_gradle_plugin") version "0.5"
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
     id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
     id("io.gitlab.arturbosch.detekt").version("1.18.1")
     id("kotlin-parcelize")
@@ -34,8 +34,12 @@ android {
                 project.findProperty("GOOGLE_MAPS_API_KEY").toString()
             )
         }
+        create("qa") {
+            isMinifyEnabled = false
+        }
         getByName("release") {
-            isMinifyEnabled = true
+            isMinifyEnabled = false
+            isShrinkResources = false
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
             resValue(
                 "string",
@@ -68,8 +72,6 @@ android {
             it.jvmArgs(
                 "-Xms2g",
                 "-Xmx2g",
-                //"-XX:+UseConcMarkSweepGC",
-                //"-XX:+UseParNewGC",
                 "-XX:+DisableExplicitGC"
             )
             it.testLogging {
@@ -108,7 +110,6 @@ dependencies {
     implementation(MainApplicationDependencies.appCompat)
     implementation(MainApplicationDependencies.material)
     implementation(MainApplicationDependencies.constraintLayout)
-    //implementation("androidx.legacy:legacy-support-v4:1.0.0")
     // Test
     testImplementation(TestDependencies.junit)
     androidTestImplementation(TestDependencies.extJUnit)
@@ -120,7 +121,6 @@ dependencies {
     // Test
     testImplementation(TestDependencies.mockitoCore)
     testImplementation(TestDependencies.robolectric)
-    //testImplementation(TestDependencies.robolectricShadow)
     // Maps
     "huaweiImplementation"(MainApplicationDependencies.hmsMaps)
     "googleImplementation"(MainApplicationDependencies.gmsMaps)
