@@ -16,10 +16,9 @@ import com.huawei.hms.maps.model.BitmapDescriptor
 import com.huawei.hms.maps.model.BitmapDescriptorFactory
 import com.huawei.hms.maps.model.LatLng
 import com.huawei.hms.maps.model.MapStyleOptions
-import com.huawei.hms.maps.model.Marker
 import com.huawei.hms.maps.model.MarkerOptions
 
-class ConfigureMap : MapManager, OnMapReadyCallback, MapSetting, HuaweiMap.OnMarkerDragListener, OnLifeCycleMap {
+class ConfigureMap : MapManager, OnMapReadyCallback, MapSetting, OnLifeCycleMap {
 
     lateinit var mapView: MapView @VisibleForTesting set
     var map: HuaweiMap? = null @VisibleForTesting set
@@ -103,25 +102,6 @@ class ConfigureMap : MapManager, OnMapReadyCallback, MapSetting, HuaweiMap.OnMar
             setMapStyle(context, R.raw.map_style)
             this.listenerOnMapReady?.onMapReady()
         }
-    }
-
-    override fun onMarkerDragStart(marker: Marker) {
-    }
-
-    override fun onMarkerDrag(marker: Marker) {
-    }
-
-    override fun onMarkerDragEnd(marker: Marker) {
-        val position = marker.position
-        this.listenerOnDragComplete?.onDragComplete(
-            CoordinatesVO(
-                latitude = position.latitude,
-                longitude = position.longitude,
-                description = marker.title
-            )
-        )
-        marker.snippet = position.latitude.toString()
-        map?.animateCamera(CameraUpdateFactory.newLatLng(position))
     }
 
     override fun onStart() {

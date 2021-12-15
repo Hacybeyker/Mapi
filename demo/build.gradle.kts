@@ -24,10 +24,6 @@ android {
             isDebuggable = true
             isMinifyEnabled = false
         }
-        create("qa") {
-            isDebuggable = true
-            isMinifyEnabled = false
-        }
         getByName("release") {
             isDebuggable = false
             isMinifyEnabled = false

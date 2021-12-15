@@ -34,9 +34,6 @@ android {
                 project.findProperty("GOOGLE_MAPS_API_KEY").toString()
             )
         }
-        create("qa") {
-            isMinifyEnabled = false
-        }
         getByName("release") {
             isMinifyEnabled = false
             isShrinkResources = false
