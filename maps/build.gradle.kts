@@ -2,13 +2,15 @@ plugins {
     id("com.android.library")
     id("kotlin-android")
     id("kotlin-kapt")
+    id("kotlin-parcelize")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
     id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
-    id("io.gitlab.arturbosch.detekt").version("1.18.1")
-    id("kotlin-parcelize")
+    id("io.gitlab.arturbosch.detekt") version "1.18.1"
 }
 
 apply {
+    from("sonarqube.gradle")
+    from("jacoco.gradle")
     from("uploader.gradle")
 }
 
@@ -47,34 +49,14 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility(JavaVersion.VERSION_1_8)
-        targetCompatibility(JavaVersion.VERSION_1_8)
+        sourceCompatibility(JavaVersion.VERSION_11)
+        targetCompatibility(JavaVersion.VERSION_11)
     }
 
-    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
-    tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
-        jvmTarget = "1.8"
-    }
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_11.toString()
 
     buildFeatures {
         viewBinding = true
-    }
-
-    testOptions {
-        unitTests {
-            isReturnDefaultValues = true
-            isIncludeAndroidResources = true
-        }
-        unitTests.all {
-            it.jvmArgs(
-                "-Xms2g",
-                "-Xmx2g",
-                "-XX:+DisableExplicitGC"
-            )
-            it.testLogging {
-                events("passed", "skipped", "failed", "standardOut", "standardError")
-            }
-        }
     }
 
     flavorDimensions.add("app")
@@ -87,6 +69,10 @@ android {
         }
     }
 
+    tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
     detekt {
         buildUponDefaultConfig = true
         allRules = true
@@ -97,6 +83,13 @@ android {
             txt.enabled = false
             sarif.enabled = false
         }
+    }
+
+    lint {
+        disable("TypographyFractions", "TypographyQuotes")
+        isCheckDependencies = true
+        isAbortOnError = false
+        isIgnoreWarnings = false
     }
 }
 
@@ -111,13 +104,17 @@ dependencies {
     testImplementation(TestDependencies.junit)
     androidTestImplementation(TestDependencies.extJUnit)
     androidTestImplementation(TestDependencies.espressoCore)
+    testImplementation(TestDependencies.mockitoCore)
+    testImplementation(TestDependencies.mockitoInline)
+    testImplementation(TestDependencies.mockitoKotlin)
+    testImplementation(TestDependencies.kotlinCoroutinesTest)
+    testImplementation(TestDependencies.robolectric)
     // Koin
     implementation(MainApplicationDependencies.koinCore)
     implementation(MainApplicationDependencies.koinAndroidxScope)
     implementation(MainApplicationDependencies.koinAndroidxViewModel)
-    // Test
-    testImplementation(TestDependencies.mockitoCore)
-    testImplementation(TestDependencies.robolectric)
+    // Detekt
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.18.0")
     // Maps
     "huaweiImplementation"(MainApplicationDependencies.hmsMaps)
     "googleImplementation"(MainApplicationDependencies.gmsMaps)

@@ -30,7 +30,10 @@ fun getBranchName(): String {
 
 tasks.register("printVersion") {
     doLast {
-        println("Here - version: " + ConfigureApp.versionName)
-        println("Here - generateVersion: " + generateVersion(ConfigureApp.versionName))
+        println("Here - version: " + ConfigureApp.version)
+        println("Here - generateVersion: " + generateVersion(ConfigureApp.version))
+        println("Here - absolutePath: ${projectDir.absolutePath}") // {PATH}\Mapi\maps
+        println("Here - projectDir: ${project.projectDir}") // {PATH}\Mapi\maps
+        println("Here - buildDir: $buildDir") // {PATH}\Mapi\maps\build
     }
 }

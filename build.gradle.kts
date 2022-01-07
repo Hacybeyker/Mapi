@@ -18,8 +18,10 @@ buildscript {
     }
 
     dependencies {
-        classpath("com.android.tools.build:gradle:7.0.3")
+        classpath("com.android.tools.build:gradle:7.0.4")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.0")
+        classpath("org.jacoco:org.jacoco.core:0.8.7")
+        classpath("org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:3.3")
         classpath("com.huawei.agconnect:agcp:1.5.2.300")
         classpath("com.google.gms:google-services:4.3.10")
         classpath("com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin:2.0.0")

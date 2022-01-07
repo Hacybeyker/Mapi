@@ -13,8 +13,8 @@ android {
         applicationId = "com.hacybeyker.maps"
         minSdk = VersionApp.minSdkVersion
         targetSdk = VersionApp.targetSdkVersion
-        versionCode = 2
-        versionName = ConfigureApp.versionName
+        versionCode = 1
+        versionName = "1.0.0"
         testInstrumentationRunner = VersionApp.testInstrumentationRunner
         vectorDrawables { useSupportLibrary = true }
     }
