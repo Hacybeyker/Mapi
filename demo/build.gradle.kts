@@ -77,4 +77,7 @@ dependencies {
     //Maps
     "googleImplementation"(project(path = ":maps"))
     "huaweiImplementation"(project(path = ":maps"))
+
+    /*"googleImplementation"("com.hacybeyker.android.maps:maps-google:1.1.0-feature-maps-enhancement-SNAPSHOT")
+    "huaweiImplementation"("com.hacybeyker.android.maps:maps-huawei:1.1.0-feature-maps-enhancement-SNAPSHOT")*/
 }

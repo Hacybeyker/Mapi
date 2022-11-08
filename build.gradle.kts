@@ -8,6 +8,11 @@ buildscript {
             isAllowInsecureProtocol = true
             name = "Huawei"
         }
+        maven {
+            setUrl("https://jitpack.io")
+            isAllowInsecureProtocol = true
+            name = "Jitpack"
+        }
     }
 
     dependencies {
@@ -30,6 +35,11 @@ allprojects {
             setUrl("https://developer.huawei.com/repo/")
             isAllowInsecureProtocol = true
             name = "Huawei"
+        }
+        maven {
+            setUrl("https://jitpack.io")
+            isAllowInsecureProtocol = true
+            name = "Jitpack"
         }
     }
 }

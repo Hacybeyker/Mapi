@@ -8,24 +8,13 @@ afterEvaluate {
     android.libraryVariants.each { variant ->
         publishing {
             publications {
-                create(variant.name, MavenPublication){
+                create(variant.name, MavenPublication) {
                     from components.findByName(variant.name)
                     groupId = ConfigureApp.groupId
                     artifactId "${ConfigureApp.artifactId}-${variant.flavorName}"
                     version = versionApp
                 }
-                /*module(MavenPublication) {
-                    groupId = ConfigureApp.groupId
-                    artifactId = ConfigureApp.artifactId
-                    version = versionApp
-                    artifacts {
-                        version = versionApp
-                        groupId = ConfigureApp.groupId
-                        artifactId = "google"
-                    }
-                }*/
             }
         }
     }
-
 }

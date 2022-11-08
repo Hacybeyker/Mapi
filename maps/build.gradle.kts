@@ -8,12 +8,14 @@ plugins {
     id("io.gitlab.arturbosch.detekt") version "1.18.1"
 }
 
-apply {
+apply(plugin = "maven-publish")
+
+/*apply {
     from("sonarqube.gradle")
     from("jacoco.gradle")
     from("uploader.gradle")
 
-}
+}*/
 
 android {
     compileSdk = VersionApp.compileSdkVersion
