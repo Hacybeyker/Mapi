@@ -8,7 +8,11 @@ plugins {
     id("io.gitlab.arturbosch.detekt") version "1.18.1"
 }
 
-apply(plugin = "maven-publish")
+
+apply {
+    from("uploader.gradle")
+}
+
 
 /*apply {
     from("sonarqube.gradle")
@@ -129,3 +133,4 @@ dependencies {
     "huaweiImplementation"(MainApplicationDependencies.hmsMaps)
     "googleImplementation"(MainApplicationDependencies.gmsMaps)
 }
+

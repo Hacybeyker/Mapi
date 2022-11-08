@@ -10,7 +10,7 @@ afterEvaluate {
             publications {
                 create(variant.name, MavenPublication) {
                     from components.findByName(variant.name)
-                    groupId = ConfigureApp.groupId
+                    groupId = "om.github.hacybeyker.mapi"
                     artifactId "${ConfigureApp.artifactId}-${variant.flavorName}"
                     version = versionApp
                 }
