@@ -15,6 +15,28 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupMap()
+
+        binding.fabMarker.setOnClickListener {
+            fragmentMap.addMarker(
+                coordinatesVO = CoordinatesVO(
+                    latitude = -33.4410298,
+                    longitude = -70.6511565,
+                    description = "Falabella Electrohogar"
+                ),
+                animateCamera = true
+            )
+        }
+
+        binding.fabMarker2.setOnClickListener {
+            fragmentMap.addMarker(
+                coordinatesVO = CoordinatesVO(
+                    latitude = -8.0974834,
+                    longitude = -79.0251891,
+                    description = "Home"
+                ),
+                animateCamera = true
+            )
+        }
     }
 
     private fun setupMap() {

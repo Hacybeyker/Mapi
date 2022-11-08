@@ -10,7 +10,6 @@ import com.hacybeyker.maps.ConfigureMap
 import com.hacybeyker.maps.CoordinatesVO
 import com.hacybeyker.maps.OnMapReadyListener
 import com.hacybeyker.maps.PropertyMapVO
-import com.hacybeyker.maps.R
 import com.hacybeyker.maps.ZoomLevel
 import com.hacybeyker.maps.databinding.FragmentMapBinding
 
@@ -24,8 +23,7 @@ class FragmentMap : Fragment(), OnMapReadyListener {
     companion object {
         @JvmStatic
         fun newInstance(
-            coordinatesVO: CoordinatesVO,
-            propertyMapVO: PropertyMapVO? = null
+            coordinatesVO: CoordinatesVO? = null, propertyMapVO: PropertyMapVO? = null
         ): FragmentMap {
             return FragmentMap().apply {
                 arguments = Bundle().apply {
@@ -37,9 +35,7 @@ class FragmentMap : Fragment(), OnMapReadyListener {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentMapBinding.inflate(inflater, container, false)
         return binding.root
@@ -52,10 +48,20 @@ class FragmentMap : Fragment(), OnMapReadyListener {
         showMap()
     }
 
-    private fun showMap() {
+    override fun showMap() {
         val mapView = configureMap.getMapView()
         binding.fcvContainerMap.removeAllViews()
         binding.fcvContainerMap.addView(mapView)
+    }
+
+    override fun addMarker(
+        coordinatesVO: CoordinatesVO,
+        zoomLevel: ZoomLevel,
+        animateCamera: Boolean, icon: Int
+    ) {
+        configureMap.setPositionWithMarker(
+            coordinatesVO = coordinatesVO, zoomLevel = zoomLevel, iconRes = icon
+        )
     }
 
     override fun onAttach(context: Context) {
@@ -70,15 +76,6 @@ class FragmentMap : Fragment(), OnMapReadyListener {
 
     override fun onMapReady() {
         loadMapSetting()
-        configureMap.setPositionWithMarker(
-            coordinatesVO = CoordinatesVO(
-                latitude = coordinatesVO.latitude,
-                longitude = coordinatesVO.longitude,
-                description = coordinatesVO.description
-            ),
-            zoomLevel = propertyMapVO?.zoomLevel ?: ZoomLevel.STREETS,
-            iconRes = propertyMapVO?.iconMarker ?: R.drawable.iconmaps
-        )
     }
 
     private fun loadMapSetting() {

@@ -57,13 +57,15 @@ class ConfigureMap : MapManager, OnMapReadyCallback, MapSetting, OnLifeCycleMap 
     override fun setPositionWithMarker(
         coordinatesVO: CoordinatesVO,
         zoomLevel: ZoomLevel,
+        animateCamera: Boolean,
         iconRes: Int
     ) {
         this.map?.let { map ->
             val place = LatLng(coordinatesVO.latitude, coordinatesVO.longitude)
-            map.animateCamera(CameraUpdateFactory.newLatLngZoom(place, zoomLevel.value))
             val markerIcon = bitmapDescriptorFromVector(context, iconRes)
             map.addMarker(MarkerOptions().position(place).icon(markerIcon))
+            if (animateCamera)
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(place, zoomLevel.value))
         }
     }
 
@@ -91,8 +93,8 @@ class ConfigureMap : MapManager, OnMapReadyCallback, MapSetting, OnLifeCycleMap 
         this.map?.uiSettings?.isRotateGesturesEnabled = state
     }
 
-    override fun onMapReady(map: GoogleMap?) {
-        map?.let {
+    override fun onMapReady(map: GoogleMap) {
+        map.let {
             this.map = it
             this.map?.mapType = GoogleMap.MAP_TYPE_NORMAL
             setMapStyle(context, R.raw.map_style)

@@ -12,6 +12,7 @@ apply {
     from("sonarqube.gradle")
     from("jacoco.gradle")
     from("uploader.gradle")
+
 }
 
 android {
@@ -24,6 +25,13 @@ android {
         testInstrumentationRunner = VersionApp.testInstrumentationRunner
         consumerProguardFiles("consumer-rules.pro")
         renderscriptSupportModeEnabled = true
+    }
+
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+            withJavadocJar()
+        }
     }
 
     buildTypes {
@@ -85,12 +93,12 @@ android {
         }
     }
 
-    lint {
+    /*lint {
         disable("TypographyFractions", "TypographyQuotes")
         isCheckDependencies = true
         isAbortOnError = false
         isIgnoreWarnings = false
-    }
+    }*/
 }
 
 dependencies {

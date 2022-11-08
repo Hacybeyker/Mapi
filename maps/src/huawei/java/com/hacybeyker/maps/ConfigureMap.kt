@@ -24,7 +24,7 @@ class ConfigureMap : MapManager, OnMapReadyCallback, MapSetting, OnLifeCycleMap 
     var map: HuaweiMap? = null @VisibleForTesting set
     var listenerOnDragComplete: OnDragCompleteListener? = null @VisibleForTesting set
     var listenerOnMapReady: OnMapReadyListener? = null @VisibleForTesting set
-    lateinit var context: Context
+    private lateinit var context: Context
 
     override fun setupMap(context: Context, savedInstanceState: Bundle?) {
         this.context = context
@@ -61,13 +61,15 @@ class ConfigureMap : MapManager, OnMapReadyCallback, MapSetting, OnLifeCycleMap 
     override fun setPositionWithMarker(
         coordinatesVO: CoordinatesVO,
         zoomLevel: ZoomLevel,
+        animateCamera: Boolean,
         iconRes: Int
     ) {
         this.map?.let { map ->
             val place = LatLng(coordinatesVO.latitude, coordinatesVO.longitude)
-            map.animateCamera(CameraUpdateFactory.newLatLngZoom(place, zoomLevel.value))
             val markerIcon = bitmapDescriptorFromVector(context, iconRes)
             map.addMarker(MarkerOptions().position(place).icon(markerIcon))
+            if (animateCamera)
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(place, zoomLevel.value))
         }
     }
 

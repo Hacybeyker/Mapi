@@ -2,47 +2,30 @@ apply {
     from("distribution.gradle.kts")
 }
 
-def repoUsername = findProperty("REPO_USERID") ?: System.getenv("REPO_USERID")
-def repoPassword = findProperty("REPO_TOKEN") ?: System.getenv("REPO_TOKEN")
 def versionApp = version
 
 afterEvaluate {
-    publishing {
-        publications {
-            google(MavenPublication) {
-                groupId = ConfigureApp.groupId
-                artifactId = ConfigureApp.artifactId
-                version = versionApp
-                artifacts {
-                    artifact("$buildDir/outputs/aar/maps-google-release.aar")
-                    version = versionApp
+    android.libraryVariants.each { variant ->
+        publishing {
+            publications {
+                create(variant.name, MavenPublication){
+                    from components.findByName(variant.name)
                     groupId = ConfigureApp.groupId
-                    artifactId = "google"
-                }
-            }
-
-            huawei(MavenPublication) {
-                groupId = ConfigureApp.groupId
-                artifactId = ConfigureApp.artifactId
-                version = versionApp
-                artifacts {
-                    artifact("$buildDir/outputs/aar/maps-huawei-release.aar")
+                    artifactId "${ConfigureApp.artifactId}-${variant.flavorName}"
                     version = versionApp
+                }
+                /*module(MavenPublication) {
                     groupId = ConfigureApp.groupId
-                    artifactId = "huawei"
-                }
-            }
-        }
-        repositories {
-            maven {
-                name = "Artifact"
-                url = ConfigureApp.urlRepoDependencies
-                allowInsecureProtocol(true)
-                credentials {
-                    username = repoUsername
-                    password = repoPassword
-                }
+                    artifactId = ConfigureApp.artifactId
+                    version = versionApp
+                    artifacts {
+                        version = versionApp
+                        groupId = ConfigureApp.groupId
+                        artifactId = "google"
+                    }
+                }*/
             }
         }
     }
+
 }

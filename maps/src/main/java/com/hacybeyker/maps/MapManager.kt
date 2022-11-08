@@ -12,6 +12,7 @@ interface MapManager {
     fun setPositionWithMarker(
         coordinatesVO: CoordinatesVO,
         zoomLevel: ZoomLevel = ZoomLevel.STREETS,
+        animateCamera: Boolean = true,
         iconRes: Int = R.drawable.iconmaps
     )
 }
