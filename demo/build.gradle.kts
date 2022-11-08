@@ -75,9 +75,9 @@ dependencies {
     implementation(MainApplicationDependencies.koinAndroidxScope)
     implementation(MainApplicationDependencies.koinAndroidxViewModel)
     //Maps
-    "googleImplementation"(project(path = ":maps"))
-    "huaweiImplementation"(project(path = ":maps"))
+    /*"googleImplementation"(project(path = ":maps"))
+    "huaweiImplementation"(project(path = ":maps"))*/
 
-    /*"googleImplementation"("om.github.hacybeyker.mapi:maps-google:1.1.0-feature-maps-enhancement-SNAPSHOT")
-    "huaweiImplementation"("om.github.hacybeyker.mapi:maps-huawei:1.1.0-feature-maps-enhancement-SNAPSHOT")*/
+    "googleImplementation"("com.hacybeyker.android.maps:maps-google:1.1.0-feature-maps-enhancement-SNAPSHOT")
+    "huaweiImplementation"("com.hacybeyker.android.maps:maps-huawei:1.1.0-feature-maps-enhancement-SNAPSHOT")
 }
