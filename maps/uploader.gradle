@@ -4,14 +4,30 @@ apply {
 
 def versionApp = version
 
-afterEvaluate {
+/*afterEvaluate {
     android.libraryVariants.each { variant ->
         publishing {
             publications {
                 create(variant.name, MavenPublication) {
                     from components.findByName(variant.name)
-                    groupId = "om.github.hacybeyker.mapi"
+                    groupId = "com.github.hacybeyker.mapi"
                     artifactId "${ConfigureApp.artifactId}-${variant.flavorName}"
+                    version = versionApp
+                }
+            }
+        }
+    }
+}*/
+
+
+afterEvaluate {
+    publishing {
+        publications {
+            android.libraryVariants.all { variant ->
+                create(variant.name, MavenPublication) {
+                    from components.findByName(variant.name)
+                    groupId = ConfigureApp.groupId
+                    artifactId = "${ConfigureApp.artifactId}-${variant.flavorName}"
                     version = versionApp
                 }
             }
