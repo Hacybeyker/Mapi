@@ -80,4 +80,10 @@ dependencies {
 
     "googleImplementation"("com.hacybeyker.android.maps:maps-google:1.1.0-feature-maps-enhancement-SNAPSHOT")
     "huaweiImplementation"("com.hacybeyker.android.maps:maps-huawei:1.1.0-feature-maps-enhancement-SNAPSHOT")
+
+/*    "googleImplementation"("com.github.Hacybeyker.mapi:google:feature-maps-enhancement-SNAPSHOT")
+    "huaweiImplementation"("com.github.Hacybeyker.mapi:huawei:feature-maps-enhancement-SNAPSHOT")*/
+
+
+
 }
