@@ -27,7 +27,7 @@ afterEvaluate {
                 create(variant.name, MavenPublication) {
                     from components.findByName(variant.name)
                     groupId = ConfigureApp.groupId
-                    artifactId = "${ConfigureApp.artifactId}-${variant.flavorName}"
+                    artifactId = "${variant.flavorName}"
                     version = versionApp
                 }
             }

@@ -1,4 +1,4 @@
-include(":demo")
+include(":maps")
 if (System.getenv("CICD") == "" || System.getenv("CICD") == null) {
-    include(":maps")
+    include(":demo")
 }
