@@ -99,12 +99,13 @@ android {
         }
     }
 
-    /*lint {
-        disable("TypographyFractions", "TypographyQuotes")
-        isCheckDependencies = true
-        isAbortOnError = false
-        isIgnoreWarnings = false
-    }*/
+    lint {
+        disable.add("TypographyFractions")
+        disable.add("TypographyQuotes")
+        checkDependencies = true
+        abortOnError = false
+        ignoreWarnings = false
+    }
 }
 
 dependencies {
