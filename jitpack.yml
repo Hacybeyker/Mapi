@@ -2,5 +2,5 @@
 #  - openjdk11
 #before_install:
 #  - ./scripts/prepareJitpackEnvironment.sh
-#env:
-#  CICD: true
+env:
+  CICD: true

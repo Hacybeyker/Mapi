@@ -5,5 +5,5 @@ object ConfigureApp {
     const val applicationId = "app.android.maps"
     const val groupId = "com.hacybeyker.android.maps"
     const val artifactId = "maps"
-    const val version = "1.1.0"
+    const val version = "1.1.1"
 }
