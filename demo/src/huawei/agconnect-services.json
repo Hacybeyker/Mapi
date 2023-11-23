@@ -4,43 +4,53 @@
 		"CN_back":"connect-drcn.hispace.hicloud.com",
 		"DE":"connect-dre.dbankcloud.cn",
 		"DE_back":"connect-dre.hispace.hicloud.com",
-		"RU":"connect-drru.dbankcloud.cn",
-		"RU_back":"connect-drru.hispace.hicloud.com",
+		"RU":"connect-drru.hispace.dbankcloud.ru",
+		"RU_back":"connect-drru.hispace.dbankcloud.cn",
 		"SG":"connect-dra.dbankcloud.cn",
 		"SG_back":"connect-dra.hispace.hicloud.com"
 	},
+	"websocketgw_all":{
+		"CN":"connect-ws-drcn.hispace.dbankcloud.cn",
+		"CN_back":"connect-ws-drcn.hispace.dbankcloud.com",
+		"DE":"connect-ws-dre.hispace.dbankcloud.cn",
+		"DE_back":"connect-ws-dre.hispace.dbankcloud.com",
+		"RU":"connect-ws-drru.hispace.dbankcloud.ru",
+		"RU_back":"connect-ws-drru.hispace.dbankcloud.cn",
+		"SG":"connect-ws-dra.hispace.dbankcloud.cn",
+		"SG_back":"connect-ws-dra.hispace.dbankcloud.com"
+	},
 	"client":{
 		"cp_id":"2640051000002592359",
-		"product_id":"736430079245933682",
-		"client_id":"692319412119679616",
-		"client_secret":"4FB1CBAC3275DF585DE24C2C8BE4CFEE95D6DF3A6130F30911185BBB85A089E4",
-		"project_id":"736430079245933682",
-		"app_id":"104622919",
-		"api_key":"CwEAAAAAsXPqqe4BS+byorZe2db48MOQcQOPKhM7ACpENGUsuCif/CJNWCJtG0oQwnEMtTsnwjcki56hjzf73DBEIDij3IG0yUI=",
-		"package_name":"com.hacybeyker.app_android_maps"
+		"product_id":"736430079245846967",
+		"client_id":"666808656519496896",
+		"client_secret":"559B04B85F40761F4016247830F4F652EA6D1D90589243D8ECF084BAB798446E",
+		"project_id":"736430079245846967",
+		"app_id":"107229865",
+		"api_key":"CgB6e3x9n+4depot3DlLEE2G34IIHsRklUeGJOq4EvJgZPkHd7MMbZAhF2egzqxhMwvpllts+Ew0aU7cQ3cu/2Hz",
+		"package_name":"com.hacybeyker.maps"
 	},
 	"oauth_client":{
-		"client_id":"104622919",
+		"client_id":"107229865",
 		"client_type":1
 	},
 	"app_info":{
-		"app_id":"104622919",
-		"package_name":"com.hacybeyker.app_android_maps"
+		"app_id":"107229865",
+		"package_name":"com.hacybeyker.maps"
 	},
 	"configuration_version":"3.0",
 	"appInfos":[
 		{
-			"package_name":"com.hacybeyker.app_android_maps",
+			"package_name":"com.hacybeyker.maps",
 			"client":{
-				"app_id":"104622919"
+				"app_id":"107229865"
 			},
 			"app_info":{
-				"package_name":"com.hacybeyker.app_android_maps",
-				"app_id":"104622919"
+				"package_name":"com.hacybeyker.maps",
+				"app_id":"107229865"
 			},
 			"oauth_client":{
 				"client_type":1,
-				"client_id":"104622919"
+				"client_id":"107229865"
 			}
 		}
 	]

@@ -42,11 +42,11 @@ android {
     productFlavors {
         create("google") {
             dimension = "app"
-            applicationId = "com.hacybeyker.app_android_maps"
+            applicationId = "com.hacybeyker.maps"
         }
         create("huawei") {
             dimension = "app"
-            applicationId = "com.hacybeyker.app_android_maps"
+            applicationId = "com.hacybeyker.maps"
             apply(plugin = "com.huawei.agconnect")
         }
     }
