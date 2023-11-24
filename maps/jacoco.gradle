@@ -92,21 +92,21 @@ android {
     task jacocoGoogleTestReport(type: JacocoReport, dependsOn: ['testGoogleDebugUnitTest'], group: 'jacocoReport') {
 
         reports {
-            xml.enabled = true
-            html.enabled = true
+            xml.required = true
+            html.required = true
         }
 
-        getSourceDirectories().setFrom(files([mainSrc, kotlinSrc]))
-        additionalSourceDirs(files(["src/main/java", "src/google/java", "src/testGoogle/java"]))
-        getClassDirectories().setFrom(files([googleTree, googleKotlinTree]))
-        getExecutionData().setFrom(files("${projectDir.absolutePath}/build/jacoco/testGoogleDebugUnitTest.exec"))
+        sourceDirectories.from = files([mainSrc, kotlinSrc])
+        additionalClassDirs.from = files(["src/main/java", "src/google/java", "src/testGoogle/java"])
+        classDirectories.from = files([googleTree, googleKotlinTree])
+        executionData.from = files("${projectDir.absolutePath}/build/jacoco/testGoogleDebugUnitTest.exec")
     }
 
     task jacocoGoogleTestCoverageVerification(type: JacocoCoverageVerification, dependsOn: 'jacocoGoogleTestReport', group: 'jacocoReport') {
 
-        getSourceDirectories().setFrom(files([mainSrc, kotlinSrc]))
-        getClassDirectories().setFrom(files([googleTree, googleKotlinTree]))
-        getExecutionData().setFrom(files("${projectDir.absolutePath}/build/jacoco/testGoogleDebugUnitTest.exec"))
+        sourceDirectories.from = files([mainSrc, kotlinSrc])
+        classDirectories.from = files([googleTree, googleKotlinTree])
+        executionData.from = files("${projectDir.absolutePath}/build/jacoco/testGoogleDebugUnitTest.exec")
 
         violationRules {
             setFailOnViolation(true)
@@ -117,25 +117,30 @@ android {
                 }
             }
         }
+    }
+
+    task jacocoGoogleTestCoverageViewResult(type: Exec, dependsOn: 'jacocoGoogleTestCoverageVerification', group: 'jacocoReport') {
+        executable "sh"
+        args "-c", "open '${buildDir}/reports/jacoco/jacocoGoogleTestReport/html/index.html'"
     }
 
     task jacocoHuaweiTestReport(type: JacocoReport, dependsOn: ['testHuaweiDebugUnitTest'], group: 'jacocoReport') {
 
         reports {
-            xml.enabled = true
-            html.enabled = true
+            xml.required = true
+            html.required = true
         }
 
-        getSourceDirectories().setFrom(files([mainSrc, kotlinSrc]))
-        getClassDirectories().setFrom(files([huaweiTree, huaweiKotlinTree]))
-        getExecutionData().setFrom(files("${projectDir.absolutePath}/build/jacoco/testHuaweiDebugUnitTest.exec"))
+        sourceDirectories.from = files([mainSrc, kotlinSrc])
+        classDirectories.from = files([huaweiTree, huaweiKotlinTree])
+        executionData.from = files("${projectDir.absolutePath}/build/jacoco/testHuaweiDebugUnitTest.exec")
     }
 
     task jacocoHuaweiTestCoverageVerification(type: JacocoCoverageVerification, dependsOn: 'jacocoHuaweiTestReport', group: 'jacocoReport') {
 
-        getSourceDirectories().setFrom(files([mainSrc, kotlinSrc]))
-        getClassDirectories().setFrom(files([huaweiTree, huaweiKotlinTree]))
-        getExecutionData().setFrom(files("${projectDir.absolutePath}/build/jacoco/testHuaweiDebugUnitTest.exec"))
+        sourceDirectories.from = files([mainSrc, kotlinSrc])
+        classDirectories.from = files([huaweiTree, huaweiKotlinTree])
+        executionData.from = files("${projectDir.absolutePath}/build/jacoco/testHuaweiDebugUnitTest.exec")
 
         violationRules {
             setFailOnViolation(true)
@@ -146,5 +151,10 @@ android {
                 }
             }
         }
+    }
+
+    task jacocoHuaweiTestCoverageViewResult(type: Exec, dependsOn: 'jacocoHuaweiTestCoverageVerification', group: 'jacocoReport') {
+        executable "sh"
+        args "-c", "open '${buildDir}/reports/jacoco/jacocoHuaweiTestReport/html/index.html'"
     }
 }

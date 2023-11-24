@@ -9,12 +9,11 @@ plugins {
 }
 
 apply {
-    from("sonarqube.gradle")
     from("jacoco.gradle")
-    from("uploader.gradle")
 }
 
 android {
+    namespace = "com.hacybeyker.maps"
     compileSdk = VersionApp.compileSdkVersion
     buildToolsVersion = VersionApp.buildToolsVersion
 
@@ -49,11 +48,11 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility(JavaVersion.VERSION_11)
-        targetCompatibility(JavaVersion.VERSION_11)
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
-    kotlinOptions.jvmTarget = JavaVersion.VERSION_11.toString()
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_17.toString()
 
     buildFeatures {
         viewBinding = true
@@ -86,10 +85,19 @@ android {
     }
 
     lint {
-        disable("TypographyFractions", "TypographyQuotes")
-        isCheckDependencies = true
-        isAbortOnError = false
-        isIgnoreWarnings = false
+        disable.addAll(
+            listOf(
+                "TypographyFractions",
+                "TypographyQuotes",
+                "JvmStaticProvidesInObjectDetector",
+                "FieldSiteTargetOnQualifierAnnotation",
+                "ModuleCompanionObjects",
+                "ModuleCompanionObjectsNotInModuleParent"
+            )
+        )
+        checkDependencies = true
+        abortOnError = false
+        ignoreWarnings = false
     }
 }
 
@@ -109,10 +117,6 @@ dependencies {
     testImplementation(TestDependencies.mockitoKotlin)
     testImplementation(TestDependencies.kotlinCoroutinesTest)
     testImplementation(TestDependencies.robolectric)
-    // Koin
-    implementation(MainApplicationDependencies.koinCore)
-    implementation(MainApplicationDependencies.koinAndroidxScope)
-    implementation(MainApplicationDependencies.koinAndroidxViewModel)
     // Detekt
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.18.0")
     // Maps

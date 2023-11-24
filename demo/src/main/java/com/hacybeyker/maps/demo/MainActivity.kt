@@ -1,9 +1,13 @@
-package com.hacybeyker.maps
+package com.hacybeyker.maps.demo
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.hacybeyker.maps.databinding.ActivityMainBinding
+import com.hacybeyker.maps.CoordinatesVO
+import com.hacybeyker.maps.PropertyMapVO
+import com.hacybeyker.maps.ZoomLevel
+import com.hacybeyker.maps.demo.databinding.ActivityMainBinding
 import com.hacybeyker.maps.view.FragmentMap
+import com.hacybeyker.maps.R as R2
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,7 +36,7 @@ class MainActivity : AppCompatActivity() {
                 mapToolbarEnabled = true,
                 rotateGestureEnabled = true,
                 zoomLevel = ZoomLevel.STREETS,
-                iconMarker = R.drawable.iconmaps_red
+                iconMarker = R2.drawable.iconmaps_red
             )
         )
         supportFragmentManager.beginTransaction().add(R.id.fcvShowMap, fragmentMap).commit()

@@ -5,6 +5,6 @@ import android.app.Application
 class TestApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-        setTheme(R.style.ThemeOverlay_AppCompat_Dark)
+        setTheme(androidx.appcompat.R.style.Theme_AppCompat_NoActionBar)
     }
 }

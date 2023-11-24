@@ -25,32 +25,32 @@
 		"client_id":"666808656519496896",
 		"client_secret":"559B04B85F40761F4016247830F4F652EA6D1D90589243D8ECF084BAB798446E",
 		"project_id":"736430079245846967",
-		"app_id":"107229865",
+		"app_id":"109699305",
 		"api_key":"CgB6e3x9n+4depot3DlLEE2G34IIHsRklUeGJOq4EvJgZPkHd7MMbZAhF2egzqxhMwvpllts+Ew0aU7cQ3cu/2Hz",
-		"package_name":"com.hacybeyker.maps"
+		"package_name":"com.hacybeyker.maps.demo"
 	},
 	"oauth_client":{
-		"client_id":"107229865",
+		"client_id":"109699305",
 		"client_type":1
 	},
 	"app_info":{
-		"app_id":"107229865",
-		"package_name":"com.hacybeyker.maps"
+		"app_id":"109699305",
+		"package_name":"com.hacybeyker.maps.demo"
 	},
 	"configuration_version":"3.0",
 	"appInfos":[
 		{
-			"package_name":"com.hacybeyker.maps",
+			"package_name":"com.hacybeyker.maps.demo",
 			"client":{
-				"app_id":"107229865"
+				"app_id":"109699305"
 			},
 			"app_info":{
-				"package_name":"com.hacybeyker.maps",
-				"app_id":"107229865"
+				"package_name":"com.hacybeyker.maps.demo",
+				"app_id":"109699305"
 			},
 			"oauth_client":{
 				"client_type":1,
-				"client_id":"107229865"
+				"client_id":"109699305"
 			}
 		}
 	]

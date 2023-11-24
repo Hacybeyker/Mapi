@@ -1,4 +1,4 @@
-package com.hacybeyker.maps
+package com.hacybeyker.maps.demo
 
 import android.app.Application
 

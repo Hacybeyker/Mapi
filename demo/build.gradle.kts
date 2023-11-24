@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
+    namespace = "com.hacybeyker.maps.demo"
     compileSdk = VersionApp.compileSdkVersion
-    buildToolsVersion = VersionApp.buildToolsVersion
 
     defaultConfig {
-        applicationId = "com.hacybeyker.maps"
+        applicationId = "com.hacybeyker.maps.demo"
         minSdk = VersionApp.minSdkVersion
         targetSdk = VersionApp.targetSdkVersion
         versionCode = 1
@@ -32,28 +32,35 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility(JavaVersion.VERSION_1_8)
-        targetCompatibility(JavaVersion.VERSION_1_8)
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
-    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_17.toString()
+
+    buildFeatures {
+        viewBinding = true
+    }
 
     flavorDimensions.add("app")
     productFlavors {
         create("google") {
             dimension = "app"
-            applicationId = "com.hacybeyker.maps"
+            applicationId = "com.hacybeyker.maps.demo"
         }
         create("huawei") {
             dimension = "app"
-            applicationId = "com.hacybeyker.maps"
+            applicationId = "com.hacybeyker.maps.demo"
             apply(plugin = "com.huawei.agconnect")
         }
     }
 
-    buildFeatures {
-        viewBinding = true
+    testOptions{
+        unitTests {
+            isIncludeAndroidResources = true
+        }
     }
+
 }
 
 dependencies {
@@ -70,10 +77,7 @@ dependencies {
     testImplementation(TestDependencies.junit)
     androidTestImplementation(TestDependencies.extJUnit)
     androidTestImplementation(TestDependencies.espressoCore)
-    //Koin
-    implementation(MainApplicationDependencies.koinCore)
-    implementation(MainApplicationDependencies.koinAndroidxScope)
-    implementation(MainApplicationDependencies.koinAndroidxViewModel)
+
     //Maps
     "googleImplementation"(project(path = ":maps"))
     "huaweiImplementation"(project(path = ":maps"))
